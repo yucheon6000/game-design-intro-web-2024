@@ -3,6 +3,7 @@ import react from '@astrojs/react';
 import mdx from "@astrojs/mdx";
 import normalize from 'normalize-path';
 import fs from 'fs';
+import sitemap from '@astrojs/sitemap';
 import starlight from "@astrojs/starlight";
 
 // 파일명 정규화 함수
@@ -23,6 +24,9 @@ normalizeFilenames('./public/image');
 // https://astro.build/config
 export default defineConfig({
   integrations: [
+    sitemap({
+      filter: (page) => !(page.indexOf("checklist") > -1)
+    }),
     starlight({
       title: '국립공주대학교 게임디자인학과 제20회 졸업전시회',
     }),

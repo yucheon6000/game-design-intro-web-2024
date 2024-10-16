@@ -43,6 +43,9 @@ const { useTitleAnim } = Astro.props;
                     <a class="nav-link" href="/2024/project">프로젝트</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="/2024/catalog">도록</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/2024/guestbook">방명록</a>
                 </li>
             </ul>
@@ -50,9 +53,9 @@ const { useTitleAnim } = Astro.props;
     </div>
 </nav>
 
+{
+useTitleAnim && 
 <script is:inline>
-    if (useTitleAnim == false) return;
-
     let title = document.querySelector(".navbar-brand div");
     document.body.addEventListener("scroll", (e) => {
         if (document.body.scrollTop >= 150)
@@ -60,6 +63,7 @@ const { useTitleAnim } = Astro.props;
         else title.classList.add("transparent");
     });
 </script>
+}
 
 <style>
     .bg-body-tertiary {

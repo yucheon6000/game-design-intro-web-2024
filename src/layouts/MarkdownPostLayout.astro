@@ -8,9 +8,6 @@ import PageTitieForProject from "../components/PageTitieForProject.astro";
 import Profile from "../components/Profile.astro";
 import Layout from "./Layout.astro";
 
-const imageFiles = await Astro.glob("../../public/image/screenshots/*.png");
-for (var img of imageFiles) console.log(img);
-
 const { frontmatter } = Astro.props;
 ---
 
@@ -33,7 +30,7 @@ const { frontmatter } = Astro.props;
         <div class="poster-and-description end-block">
             <img
                 class="poster"
-                src=`/2024/image/posters/${frontmatter.fileName}.png`
+                src=`/2024/image/posters/${frontmatter.fileName}.jpg`
             />
             <div class="description">
                 <slot />
@@ -80,7 +77,7 @@ const { frontmatter } = Astro.props;
         </div>
 
         <BlackSmallTitle>팀원</BlackSmallTitle>
-        <div class="profile-group end-block">
+        <div class="profile-group">
             {
                 frontmatter.profileNames.map((name: string, idx: number) => (
                     <Profile
@@ -92,6 +89,28 @@ const { frontmatter } = Astro.props;
                 ))
             }
         </div>
+        <div class="end-block" style="margin-top: 3rem; color: #b5b9c6;">
+            * 사진을 클릭하면 홈페이지 또는 이메일로 이동합니다.
+        </div>
+
+        <script is:inline>
+            let profiles = document.querySelectorAll(
+                ".profile-group .profile-link",
+            );
+
+            for (let p of profiles) {
+                p.addEventListener("click", (e) => {
+                    let name = p.querySelector(".name").textContent.toString();
+
+                    gtag("event", "click_button", {
+                        button_name: "profile_button",
+                        profile_name: name,
+                    });
+
+                    console.log("click: " + name);
+                });
+            }
+        </script>
     </main>
 
     <!-- ShareThis BEGIN -->

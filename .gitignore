@@ -1,6 +1,7 @@
 # build output
 dist/
-
+2024/
+public/image/profile-images**
 # generated types
 .astro/
 

@@ -36,6 +36,26 @@ const allPortfolios = await Astro.glob("./project/*.md");
             }
         </div>
 
+        <script is:inline>
+            let game = document.querySelector(".card-group.game");
+            let games = game.querySelectorAll(".project");
+
+            for (let g of games) {
+                g.addEventListener("click", (e) => {
+                    let title = g
+                        .querySelector(".title")
+                        .textContent.toString();
+
+                    gtag("event", "click_button", {
+                        button_name: "project_button",
+                        project_title: title,
+                    });
+
+                    console.log("click: " + title);
+                });
+            }
+        </script>
+
         <!-- <div class="card-group portfolio d-none">
             {
                 allPortfolios.map(

@@ -9,12 +9,15 @@ const { title, fileName, path } = Astro.props;
 ---
 
 <a class="project" href={path}>
-    <img src=`/2024/image/posters/${fileName}.png` class="image" />
-    <div class="name">{title}</div>
+    <div class="image-container">
+        <img src=`/2024/image/posters/${fileName}.jpg` class="image front" />
+    </div>
+    <div class="title">{title}</div>
 </a>
 
 <style>
     .project {
+        position: relative;
         width: calc((100% - 75px) / 4);
         min-width: calc((100% - 75px) / 4);
         max-width: calc((100% - 75px) / 4);
@@ -25,16 +28,32 @@ const { title, fileName, path } = Astro.props;
         color: var(--black);
     }
 
-    .image {
+    .image-container {
+        position: relative;
         width: 100%;
-        border-radius: 8px;
         height: auto;
         aspect-ratio: 1 / 1.414;
-        background-color: var(--primary);
         margin-bottom: 20px;
     }
 
-    .name {
+    .image {
+        position: absolute;
+        width: 100%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 8px;
+        transition: width 0.3s ease;
+        will-change: transform width;
+    }
+
+    .project:hover .image {
+        width: 105%;
+        transition: width 0.3s ease;
+        will-change: transform width;
+    }
+
+    .title {
         font-size: 20px;
     }
 

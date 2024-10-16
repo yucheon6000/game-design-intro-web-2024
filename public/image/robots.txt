@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://knugame.kr/2024/sitemap-index.xml

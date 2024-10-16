@@ -1,0 +1,50 @@
+---
+import Menu from "../components/Menu.astro";
+import PageTitle from "../components/PageTitie.astro";
+import SelectableOption from "../components/SelectableOption.astro";
+import Layout from "../layouts/Layout.astro";
+---
+
+<script
+    type="module"
+    src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+></script>
+<script
+    nomodule
+    src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<Layout>
+    <Menu />
+
+    <PageTitle title="CATALOG" subtitle="도록" />
+    <main>
+        <a class="fullscreen" target="_blank" href="/2024/catalog.pdf">
+            <SelectableOption active className="">
+                <ion-icon name="open"></ion-icon>&nbsp;&nbsp;크게 보기
+            </SelectableOption>
+        </a>
+
+        <div
+            class="end-block"
+            style="position: relative; width: 100%; height: 70dvh; aspect-ratio: 1 / 1.414;"
+        >
+            <iframe
+                style="position: relative; width: 100%; height: 100%;"
+                width="100%"
+                height="100%"
+                frameborder="0"
+                src="/2024/catalog.pdf"></iframe>
+        </div>
+    </main>
+</Layout>
+<style>
+    main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .fullscreen {
+        margin-bottom: 6.25rem;
+        text-decoration: none !important;
+    }
+</style>
