@@ -111,8 +111,10 @@ const { title } = Astro.props;
         <Footer />
     </body>
 </html>
-<style is:global>
+<style is:inline>
     @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
+</style>
+<style is:global>
     /* @font-face {
         font-family: "Pretendard";
         src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard.woff")
@@ -138,8 +140,8 @@ const { title } = Astro.props;
             rgb(var(--accent-light)) 30%,
             white 60%
         );
-        --primary: #193c8f;
-        --primary-dark: #19284c;
+        --primary: #0c204f;
+        --primary-dark: #0d1830;
         --black: #212529;
 
         --mobile: 500px;
@@ -164,7 +166,7 @@ const { title } = Astro.props;
             "Apple Color Emoji",
             "Segoe UI Emoji",
             "Segoe UI Symbol",
-            sans-serif;
+            sans-serif !important;
     }
 
     html {
@@ -172,6 +174,7 @@ const { title } = Astro.props;
         height: 100%;
         position: fixed;
         overflow-x: hidden;
+        overflow-y: overlay;
         color: var(--black);
     }
 
@@ -194,8 +197,24 @@ const { title } = Astro.props;
             monospace;
     }
 
+    .start-block-pad {
+        padding-top: 9.375rem !important;
+    }
+
+    .end-block-pad {
+        padding-bottom: 9.375rem !important;
+    }
+
+    .start-block {
+        margin-top: 9.375rem !important;
+    }
+
     .end-block {
         margin-bottom: 9.375rem !important;
+    }
+
+    .pull {
+        margin-top: -9.375rem !important;
     }
 
     main {
@@ -208,6 +227,10 @@ const { title } = Astro.props;
         border-radius: 10px;
     }
 
+    .only-mobile {
+        display: none;
+    }
+
     @media (width <= 1000px) {
         main {
             padding: 0 40px;
@@ -215,12 +238,40 @@ const { title } = Astro.props;
     }
 
     @media (width <= 600px) {
+        .only-mobile {
+            display: block;
+        }
+
+        .only-pc {
+            display: hidden;
+        }
+
         main {
             padding: 0 20px;
         }
 
         :root {
             font-size: 14px;
+        }
+
+        .start-block-pad {
+            padding-top: 7rem !important;
+        }
+
+        .end-block-pad {
+            padding-bottom: 7rem !important;
+        }
+
+        .start-block {
+            margin-top: 7rem !important;
+        }
+
+        .end-block {
+            margin-bottom: 7rem !important;
+        }
+
+        .pull {
+            margin-top: -7rem !important;
         }
     }
 
@@ -234,10 +285,27 @@ const { title } = Astro.props;
         color: white;
     }
 
-    .block-drag {
+    .no-drag {
         -webkit-user-select: none;
         -moz-user-select: none;
         -ms-use-select: none;
         user-select: none;
+    }
+
+    /* 스크롤바 전체 기본 꾸미기 */
+    body::-webkit-scrollbar {
+        background-color: transparent;
+    }
+
+    /* 스크롤바 막대 꾸미기 */
+    body::-webkit-scrollbar-thumb {
+        background-color: #dddddd;
+        border-radius: 100px;
+    }
+
+    /* 스크롤바 트랙 꾸미기 */
+    body::-webkit-scrollbar-track {
+        width: 0;
+        background: transparent;
     }
 </style>

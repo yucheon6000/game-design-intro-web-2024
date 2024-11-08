@@ -9,7 +9,7 @@ title: SOS
 team: DEX
 
 # 유튜브
-youtube:
+youtube: [SeuUR2fFUes]
 
 # 프로필
 profileNames: [김지수, 함동욱]

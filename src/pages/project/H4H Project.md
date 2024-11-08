@@ -9,7 +9,7 @@ title: H4H Project
 team: 팀 이중수소
 
 # 유튜브
-youtube: 필요없음
+youtube: [FP3TuNntqlE]
 
 # 프로필 (순서대로 적어주시면됩니다.)
 profileNames: [강주희, 김가은, 김민지, 김수진, 장현정]

@@ -9,13 +9,13 @@ title: Dummy
 team: 1921
 
 # 유튜브
-youtube: 필요없음
+youtube: [LE0kOeMSXRA]
 
 # 프로필 (순서대로 적어주시면됩니다.)
 profileNames: [김도경, 박희경]
 profileRoles: [3D 그래픽 디자이너, 프로그래밍]
 profileEmails: [kimdogoung@daum.net, gmlrud8245@naver.com]
-profilePages: []
+profilePages: [null, null]
 
 # 링크 (표시 원하는 링크 있으면 넣어주시고, 없으면 예시 지워서 보내주세요.)
 linkNames: []

@@ -9,7 +9,7 @@ title: "집행 : The Forbidden Mission"
 team: 씨더덕_SeeTheDuck
 
 # 유튜브
-youtube: null
+youtube: [2lZAiJDV3jM]
 
 # 프로필 (순서대로 적어주시면됩니다.)
 profileNames: [이성래, 진현지, 김민욱, 박희경]
@@ -30,11 +30,8 @@ profilePages:
   ]
 
 # 링크 (표시 원하는 링크 있으면 넣어주시고, 없으면 예시 지워서 보내주세요.)
-linkNames: [null]
-linkUrls:
-  [
-    null
-  ]
+linkNames: []
+linkUrls: []
 ---
 
 **<h1>OSORI 소대, "작전명 침묵"을 집행하라.</h1>**

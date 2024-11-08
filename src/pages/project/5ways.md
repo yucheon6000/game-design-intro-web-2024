@@ -9,7 +9,7 @@ title: 죽음을 받아들이는 다섯 가지 방법
 team: 유니복스
 
 # 유튜브
-youtube: 필요없음
+youtube: [R7tI-vjg5wM]
 
 # 프로필 (순서대로 적어주시면됩니다.)
 profileNames: [안경은, 안세빈, 이지원]

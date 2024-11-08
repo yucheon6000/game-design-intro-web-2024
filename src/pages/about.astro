@@ -9,10 +9,28 @@ import Congrats from "../components/Congrats.astro";
 import RoundedContainerForAbout from "../components/RoundedContainerForAbout.astro";
 import Profile from "../components/Profile.astro";
 import ProfileWithoutInfo from "../components/ProfileWithoutInfo.astro";
+import DefaultText from "../components/DefaultText.astro";
 
 const allProfs = ["경병표", "유석호", "이동열", "이완복", "이동엽", "이종호",
                     "고정운", "김남재", "최정화", "최홍준", "김정석", "김예은", "김희종"]; // prettier-ignore
 const allStudents = ["강성혁", "강주희", "강준안", "권태서", "김가은", "김도경", "김민욱", "김민지", "김사빈", "김수진", "김지수", "김하나", "니콘스탄틴", "박시원", "박유천", "박정원", "박희경", "설재석", "송은선", "안경은", "안세빈", "양정인", "이국동", "이상훈", "이성래", "이신웅", "이지원", "장서영", "장윤우", "장현정", "정다솜", "주하연", "진현지", "최미선", "함동욱"]; // prettier-ignore
+var studentToGame: any = {};
+for (let stud of allStudents) studentToGame[stud] = [];
+
+const allGames = await Astro.glob("./project/*.md");
+allGames.sort((game1, game2) =>
+    game1.frontmatter.title.localeCompare(game2.frontmatter.title),
+);
+
+for (let game of allGames) {
+    for (let name of game.frontmatter.profileNames) {
+        if (studentToGame.hasOwnProperty(name))
+            studentToGame[name].push({
+                title: game.frontmatter.title,
+                url: game.url,
+            });
+    }
+}
 ---
 
 <Layout>
@@ -34,14 +52,32 @@ const allStudents = ["강성혁", "강주희", "강준안", "권태서", "김가
             <img class="poster" src="/2024/image/exhibition-poster.png" />
 
             <div class="description">
-                [TUTORIAL]은 공주대학교 게임디자인학과 제 20회 졸업 전시회를
-                맞아 지스타에서 개최한다. <br /><br />
-                우리는 누구나 새로운 무언가를 배우기 전, 본 게임의 튜토리얼의 과정을
-                거치기 마련이다. <br /><br />
-                이 과정 속에서 실전으로 나아가기 위한 기술들을 익히고 경험하며 본인의
-                것으로 만든다. <br /><br />
-                약 4년의 학업 기간 동안 쌓은 노력의 산물을 공개함으로써 우리는 비로소
-                [게임]을 시작한다.
+                <h1><strong>TUTORIAL</strong></h1>
+                <h5>
+                    <strong
+                        >국립공주대학교 게임디자인학과 제20회 졸업전시회</strong
+                    >
+                </h5>
+                <br />
+
+                국립공주대학교 게임디자인학과 제20회 졸업전시회
+                <strong>TUTORIAL</strong>을 부산 G-Star에서 개최합니다.
+
+                <br /><br />
+                졸업을 앞둔 4학년 학생들이 약 일 년간 준비한 게임 12작품을 전시합니다.
+
+                <br /><br />
+                새로운 게임을 시작하기 전, 튜토리얼은 우리에게 이 게임을 어떻게 진행해야
+                할지 알려줍니다.
+
+                <br /><br />
+                게임디자인학과에서의 4년은 우리 35명에게 튜토리얼이었습니다.
+                <br />
+                이제는 진짜 게임을 시작해 보려고 합니다.
+
+                <br /><br />
+                G-Star에 방문하셔서 재밌는 게임을 즐겨주시고, 앞으로 나아갈 학생들을
+                힘껏 응원해 주세요!
             </div>
         </div>
 
@@ -53,7 +89,7 @@ const allStudents = ["강성혁", "강주희", "강준안", "권태서", "김가
                 class="video end-block"
                 width="560"
                 height="315"
-                src="https://www.youtube.com/embed/FlyJpenSCYw?si=nEyI3663iyPVp4rg"
+                src="https://www.youtube.com/embed/3LmzoafzORc"
                 title="YouTube video player"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -61,7 +97,7 @@ const allStudents = ["강성혁", "강주희", "강준안", "권태서", "김가
                 allowfullscreen></iframe>
         </RoundedContainerForAbout>
 
-        <div style="margin-top: -50px;">
+        <div class="pull">
             <RoundedContainerForAbout leftRound>
                 <YellowSmallTitle>Professors</YellowSmallTitle>
                 <BlackSmallTitle>교수</BlackSmallTitle>
@@ -75,22 +111,25 @@ const allStudents = ["강성혁", "강주희", "강준안", "권태서", "김가
 
                 <div class="profile-group end-block">
                     {
-                        allStudents.map((name) => (
-                            <ProfileWithoutInfo name={name} />
-                        ))
+                        allStudents.map((name) => {
+                            let games = studentToGame[name];
+                            let index = Math.floor(
+                                Math.random() * games.length,
+                            );
+                            let game = games[index];
+
+                            return (
+                                <ProfileWithoutInfo
+                                    name={name}
+                                    gameTitle={game.title}
+                                    url={game.url}
+                                />
+                            );
+                        })
                     }
                 </div>
             </RoundedContainerForAbout>
         </div>
-
-        <div style="margin-top: -50px;"></div>
-
-        <!-- <RoundedContainerForAbout useBackgroundColor rightRound leftRound>
-            <YellowSmallTitle>Sponsors</YellowSmallTitle>
-            <BlackSmallTitle color="white">후원</BlackSmallTitle>
-
-            <div class="profile-group end-block"></div>
-        </RoundedContainerForAbout> -->
     </main>
 </Layout>
 
@@ -145,12 +184,16 @@ const allStudents = ["강성혁", "강주희", "강준안", "권태서", "김가
         }
 
         .poster {
+            flex: 0 0 auto;
             max-width: calc(100% - 70px);
             margin-bottom: 30px;
         }
 
         .description {
             max-width: 100%;
+            font-weight: 400;
+            font-size: 1.125rem;
+            line-height: 2rem;
         }
     }
 

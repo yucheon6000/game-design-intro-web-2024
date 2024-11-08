@@ -9,7 +9,7 @@ title: BLACKOUT
 team: Siloegi Operation
 
 # 유튜브
-youtube: https://www.youtube.com/@siloegioperation7687
+youtube: [FpjVzgGWh2w]
 
 # 프로필 (순서대로 적어주시면됩니다.)
 profileNames: [강준안, 권태서, 설재석]
@@ -23,8 +23,14 @@ profilePages:
     ]
 
 # 링크 (표시 원하는 링크 있으면 넣어주시고, 없으면 예시 지워서 보내주세요.)
-linkNames: ["스팀 페이지"]
-linkUrls: ["https://store.steampowered.com/app/2415000/BLACKOUT/?l=koreana"]
+linkNames: [
+    "스팀 페이지",
+    "X (Twitter)"
+    ]
+linkUrls: [
+    "https://store.steampowered.com/app/2415000/BLACKOUT/?l=koreana",
+    "https://x.com/Siloegi_Operate"
+    ]
 ---
 
 # **하드코어 협동 좀비 슈터**

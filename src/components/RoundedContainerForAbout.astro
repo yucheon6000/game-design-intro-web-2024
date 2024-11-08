@@ -9,7 +9,7 @@ const { useBackgroundColor, rightRound, leftRound } = Astro.props;
 ---
 
 <div
-    class=`about-container 
+    class=`about-container start-block-pad end-block-pad 
             ${useBackgroundColor ? "background" : ""} 
             ${rightRound ? "right" : ""} 
             ${leftRound ? "left" : ""} 
@@ -20,7 +20,7 @@ const { useBackgroundColor, rightRound, leftRound } = Astro.props;
 <style>
     .about-container {
         position: relative;
-        padding: 9.375rem 0 9.375rem 0;
+        /* padding: 9.375rem 0 9.375rem 0; */
     }
 
     .about-container::before {

@@ -1,13 +1,39 @@
 ---
 interface Props {
     name: string;
+    url?: string;
+    gameTitle?: string;
 }
 
-const { name } = Astro.props;
+const { name, url, gameTitle } = Astro.props;
 ---
 
+<script
+    type="module"
+    src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+></script>
+<script
+    nomodule
+    src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
 <div class="profile">
-    <div class="image">
+    <div class="image no-drag">
+        {
+            gameTitle && (
+                <a class="profile-link" href={url}>
+                    <div>
+                        <>
+                            <ion-icon name="open" />
+                            <br />
+                        </>
+                        {gameTitle}
+                        <br />
+                        게임으로 이동
+                    </div>
+                </a>
+            )
+        }
+
         <img
             width="100%"
             src=`/2024/image/profile-images/${name}.jpg`
@@ -70,5 +96,42 @@ const { name } = Astro.props;
         text-wrap: nowrap;
         text-align: center;
         /* margin-bottom: 0.2rem; */
+    }
+
+    .profile a {
+        position: absolute;
+        display: block;
+        width: 100%;
+        height: 100%;
+        border-radius: 0.5rem;
+        text-decoration: none;
+        transition: background-color 0.3s;
+        color: #ffffff00;
+    }
+
+    .profile a:hover {
+        color: white;
+        background-color: #00000098;
+    }
+
+    .profile a div {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        font-size: 0.8rem;
+        text-wrap: nowrap;
+    }
+
+    .image {
+        position: relative;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 4 / 5;
+        border-radius: 0.5rem;
+        overflow: hidden;
+        background-color: var(--primary);
+        margin-bottom: 1.25rem;
     }
 </style>

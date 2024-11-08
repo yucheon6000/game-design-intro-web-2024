@@ -9,7 +9,7 @@ title: PROJECT :T
 team: DEX
 
 # 유튜브
-youtube: 필요없음
+youtube: [5H2Eu3z49WM]
 
 # 프로필 (순서대로 적어주시면됩니다.)
 profileNames: [함동욱, 김지수]

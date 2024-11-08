@@ -9,7 +9,18 @@ import Profile from "../components/Profile.astro";
 import Layout from "./Layout.astro";
 
 const { frontmatter } = Astro.props;
+
+let url = "https://knugame.kr/2024" + frontmatter.url;
+let hits = `https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=${url}&count_bg=%23193C8F&title_bg=%23193C8F&icon=&icon_color=%23E7E7E7&title=%EC%A1%B0%ED%9A%8C%EC%88%98&edge_flat=false`;
 ---
+
+<script
+    type="module"
+    src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+></script>
+<script
+    nomodule
+    src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
 <Layout title={frontmatter.title}>
     <link
@@ -34,28 +45,57 @@ const { frontmatter } = Astro.props;
             />
             <div class="description">
                 <slot />
+
+                <div class="link-container">
+                    {
+                        frontmatter.linkNames.map(
+                            (name: string, idx: number) => {
+                                return (
+                                    <a
+                                        href={frontmatter.linkUrls[idx]}
+                                        target="_blank"
+                                        class="btn-link"
+                                    >
+                                        <ion-icon name="open" />
+                                        &nbsp;
+                                        {frontmatter.linkNames[idx]}
+                                    </a>
+                                );
+                            },
+                        )
+                    }
+                </div>
             </div>
         </div>
 
         <BlackSmallTitle>소개 영상 & 스크린샷</BlackSmallTitle>
         <div
             style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
-            class="swiper mySwiper2 block-drag"
+            class="swiper mySwiper2 no-drag"
         >
             <div class="swiper-wrapper">
                 <!-- Youtube -->
-                <!-- <div class="swiper-slide">
-                    <iframe
-                        class=""
-                        width="1920"
-                        height="1080"
-                        src=`https://www.youtube.com/embed/${frontmatter.youtube}`
-                        title="YouTube video player"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        referrerpolicy="strict-origin-when-cross-origin"
-                        allowfullscreen></iframe>
-                </div> -->
+                {
+                    frontmatter.youtube.map((id: string) => {
+                        let url = `https://www.youtube.com/embed/${id}`;
+
+                        return (
+                            <div class="swiper-slide">
+                                <iframe
+                                    class=""
+                                    width="1920"
+                                    height="1080"
+                                    src={url}
+                                    title="YouTube video player"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin"
+                                    allowfullscreen
+                                />
+                            </div>
+                        );
+                    })
+                }
 
                 <!-- Images will be inserted here-->
             </div>
@@ -63,14 +103,20 @@ const { frontmatter } = Astro.props;
             <div class="swiper-button-prev"></div>
         </div>
 
-        <div class="swiper mySwiper block-drag end-block">
+        <div class="swiper mySwiper no-drag end-block">
             <div class="swiper-wrapper">
                 <!-- Youtube -->
-                <!-- <div class="swiper-slide">
-                    <img
-                        src=`https://img.youtube.com/vi/${frontmatter.youtube}/default.jpg`
-                    />
-                </div> -->
+                {
+                    frontmatter.youtube.map((id: string) => {
+                        let url = `https://img.youtube.com/vi/${id}/default.jpg`;
+
+                        return (
+                            <div class="swiper-slide">
+                                <img src={url} />
+                            </div>
+                        );
+                    })
+                }
 
                 <!-- Images will be inserted here-->
             </div>
@@ -111,11 +157,15 @@ const { frontmatter } = Astro.props;
                 });
             }
         </script>
-    </main>
 
-    <!-- ShareThis BEGIN -->
-    <div class="sharethis-inline-reaction-buttons end-block"></div>
-    <!-- ShareThis END -->
+        <!-- ShareThis BEGIN -->
+        <div class="sharethis-inline-reaction-buttons end-block"></div>
+        <!-- ShareThis END -->
+
+        <div style="width: 100%; display: flex; justify-content: end;">
+            <img src={hits} />
+        </div>
+    </main>
 
     <div id="game-title" class="d-none">{frontmatter.title}</div>
     <div id="file-name" class="d-none">{frontmatter.fileName}</div>
@@ -287,6 +337,31 @@ const { frontmatter } = Astro.props;
             50% - 1.563rem
         ); /* 양쪽 여백을 고려해 이미지의 최대 너비 설정 */
         height: auto; /* 이미지 비율 유지 */
+    }
+
+    .link-container {
+        display: flex;
+        flex-direction: column;
+        margin-top: 4rem;
+        gap: 1rem;
+    }
+
+    .btn-link {
+        color: var(--black);
+        padding: 0.9rem 0.5rem;
+        border-radius: 6.25rem;
+        text-decoration: none;
+        background-color: #eeeeee;
+        text-align: center;
+        /* transition: background-color 0.3s ease-in;
+        transition: color 0.3s ease-in; */
+    }
+
+    .btn-link:hover {
+        color: white;
+        background-color: var(--primary-dark);
+        /* transition: background-color 0.3s ease-in;
+        transition: color 0.3s ease-in; */
     }
 
     @media (width <= 600px) {

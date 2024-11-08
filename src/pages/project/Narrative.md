@@ -9,7 +9,7 @@ title: Narrative
 team: 비이성적
 
 # 유튜브
-youtube: 필요없음
+youtube: [D6jhX7MW4i8]
 
 # 프로필 (순서대로 적어주시면됩니다.)
 profileNames: [정다솜, 장윤우, 김수진, 강성혁, 강예진]

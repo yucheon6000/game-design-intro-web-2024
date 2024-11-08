@@ -9,7 +9,7 @@ title: Ultrawoman
 team: toporosy
 
 # 유튜브
-youtube: null
+youtube: [SoOZbsDle4o]
 
 # 프로필 (순서대로 적어주시면됩니다.)
 profileNames: [니콘스탄틴, 최미선, 이국동]

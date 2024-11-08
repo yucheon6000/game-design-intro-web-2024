@@ -7,7 +7,7 @@ interface Props {
 const { title, subtitle } = Astro.props;
 ---
 
-<div class="page-title-container">
+<div class="page-title-container no-drag">
     <div class="page-title">
         <div class="titles">
             <div class="title lotte-font wave-text">{title}</div>
@@ -145,10 +145,14 @@ const { title, subtitle } = Astro.props;
     .titles {
         color: white;
         position: absolute;
+        display: flex;
         left: 50%;
         transform: translateX(-50%);
         bottom: -25px;
         text-align: center;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 
     .wave-text {

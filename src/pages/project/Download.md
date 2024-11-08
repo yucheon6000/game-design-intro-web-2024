@@ -9,7 +9,7 @@ title: Download
 team: 부대찌개
 
 # 유튜브
-youtube:
+youtube: [LMBtKW7SeUE]
 
 # 프로필 (순서대로 적어주시면됩니다.)
 profileNames: [양정인, 김하나, 박시원, 장서영, 장현정, 주하연]
@@ -42,11 +42,8 @@ profilePages:
   ]
 
 # 링크 (표시 원하는 링크 있으면 넣어주시고, 없으면 예시 지워서 보내주세요.)
-linkNames: [null]
-linkUrls:
-  [
-    null
-  ]
+linkNames: []
+linkUrls: []
 ---
 
 ### **"다운로드 ■/ 주셔서 ■■합■■."**
