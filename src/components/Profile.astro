@@ -48,7 +48,11 @@ const { name, role, email, page } = Astro.props;
             }
             <div class="name d-none">{name}</div>
         </a>
-        <img width="100%" src=`/2024/image/profile-images/${name}.jpg` />
+        <img
+            width="100%"
+            src=`/2024/image/profile-images/${name}.jpg`
+            onerror="this.style.display='none'"
+        />
     </div>
     <div class="name-and-role">
         <div class="name">{name}</div>
@@ -125,7 +129,12 @@ const { name, role, email, page } = Astro.props;
         aspect-ratio: 4 / 5;
         border-radius: 0.5rem;
         overflow: hidden;
-        background-color: var(--primary);
+        background: #c5d0d7;
+        background: linear-gradient(
+            180deg,
+            rgb(215 222 228) 0%,
+            rgb(195 202 205) 100%
+        );
         margin-bottom: 1.25rem;
     }
 

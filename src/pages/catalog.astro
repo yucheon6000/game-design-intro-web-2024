@@ -3,6 +3,9 @@ import Menu from "../components/Menu.astro";
 import PageTitle from "../components/PageTitie.astro";
 import SelectableOption from "../components/SelectableOption.astro";
 import Layout from "../layouts/Layout.astro";
+
+var pcIndexs = Array.from({ length: 50 }, (_, i) => i + 1);
+var mobileIndexs = Array.from({ length: 98 }, (_, i) => i + 1);
 ---
 
 <script
@@ -12,40 +15,258 @@ import Layout from "../layouts/Layout.astro";
 <script
     nomodule
     src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+<script
+    is:inline
+    src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+/>
 <Layout>
     <Menu />
 
     <PageTitle title="CATALOG" subtitle="도록" />
     <main>
-        <a class="fullscreen" target="_blank" href="/2024/catalog.pdf">
-            <SelectableOption active className="">
-                <ion-icon name="open"></ion-icon>&nbsp;&nbsp;크게 보기
-            </SelectableOption>
-        </a>
+        <div class="fullscreen">
+            <a
+                target="_blank"
+                href="https://drive.usercontent.google.com/download?id=1NLV5q0HdnsXM6mCUWuopJDkqR6V2KT3o&export=download&confirm=t&uuid=7c9c9b12-b264-4d07-9de3-305305d4d63c"
+            >
+                <SelectableOption active className="">
+                    <ion-icon name="open"></ion-icon>&nbsp;&nbsp;다운로드
+                </SelectableOption>
+            </a>
+        </div>
 
-        <div
-            class="end-block"
-            style="position: relative; width: 100%; height: 70dvh; aspect-ratio: 1 / 1.414;"
-        >
-            <iframe
-                style="position: relative; width: 100%; height: 100%;"
-                width="100%"
-                height="100%"
-                frameborder="0"
-                src="/2024/catalog.pdf"></iframe>
+        <!-- Catalog - PC -->
+        <div class="catalog-container only-pc">
+            <div
+                style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
+                class="swiper mySwiper2 no-drag shadow"
+            >
+                <div class="swiper-wrapper">
+                    {
+                        pcIndexs.map((idx) => (
+                            <div class="swiper-slide">
+                                <img
+                                    src={
+                                        "/2024/image/catalog/pc/" + idx + ".jpg"
+                                    }
+                                    loading="lazy"
+                                />
+                            </div>
+                        ))
+                    }
+                </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+
+            <div class="swiper mySwiper no-drag end-block">
+                <div class="swiper-wrapper">
+                    {
+                        pcIndexs.map((idx) => (
+                            <div class="swiper-slide">
+                                <img
+                                    src={
+                                        "/2024/image/catalog/pc/" + idx + ".jpg"
+                                    }
+                                    loading="lazy"
+                                />
+                            </div>
+                        ))
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Catalog - Mobile -->
+        <div class="catalog-container only-mobile">
+            <div
+                style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
+                class="swiper mySwiper2 no-drag shadow"
+            >
+                <div class="swiper-wrapper">
+                    {
+                        mobileIndexs.map((idx) => (
+                            <div class="swiper-slide">
+                                <img
+                                    src={
+                                        "/2024/image/catalog/mobile/" +
+                                        idx +
+                                        ".jpg"
+                                    }
+                                    loading="lazy"
+                                />
+                            </div>
+                        ))
+                    }
+                </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+
+            <div class="swiper mySwiper no-drag end-block">
+                <div class="swiper-wrapper">
+                    {
+                        mobileIndexs.map((idx) => (
+                            <div class="swiper-slide">
+                                <img
+                                    src={
+                                        "/2024/image/catalog/mobile/" +
+                                        idx +
+                                        ".jpg"
+                                    }
+                                    loading="lazy"
+                                />
+                            </div>
+                        ))
+                    }
+                </div>
+            </div>
         </div>
     </main>
 </Layout>
 
+<script is:inline>
+    let Swiper1 = new Swiper(".only-pc .mySwiper", {
+        // loop: true,
+        spaceBetween: 10,
+        slidesPerView: 4,
+        freeMode: true,
+        watchSlidesProgress: true,
+    });
+
+    let Swiper2 = new Swiper(".only-pc .mySwiper2", {
+        // loop: true,
+        spaceBetween: 10,
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        thumbs: {
+            swiper: Swiper1,
+        },
+    });
+
+    Swiper1.update();
+    Swiper2.update();
+</script>
+
+<script is:inline>
+    Swiper1 = new Swiper(".only-mobile .mySwiper", {
+        // loop: true,
+        spaceBetween: 10,
+        slidesPerView: 4,
+        freeMode: true,
+        watchSlidesProgress: true,
+    });
+
+    Swiper2 = new Swiper(".only-mobile .mySwiper2", {
+        // loop: true,
+        spaceBetween: 10,
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        thumbs: {
+            swiper: Swiper1,
+        },
+    });
+
+    Swiper1.update();
+    Swiper2.update();
+</script>
+
 <style>
     main {
+        position: relative;
         display: flex;
         flex-direction: column;
-        align-items: center;
     }
 
     .fullscreen {
+        display: flex;
+        justify-content: center;
         margin-bottom: 6.25rem;
+    }
+
+    a {
         text-decoration: none !important;
+    }
+
+    .shadow {
+        box-shadow: 1px 1px 7px #1d222c24 !important;
+    }
+</style>
+
+<style is:inline>
+    .swiper {
+        width: 100%;
+        border-radius: 0.625rem;
+        overflow: hidden;
+        height: 18.75rem;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .swiper-wrapper {
+        border-radius: 0.625rem;
+    }
+
+    .swiper-slide {
+        position: relative;
+        text-align: center;
+        font-size: 1.125rem;
+        background: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-size: cover;
+        background-position: center;
+        border-radius: 0.625rem;
+        overflow: hidden;
+    }
+
+    .swiper-slide img,
+    .swiper-slide iframe {
+        position: relative;
+        display: block;
+        max-width: 100%;
+        aspect-ratio: 2000 / 1404;
+        object-fit: cover;
+    }
+
+    .only-mobile .swiper-slide img {
+        aspect-ratio: 1500 / 2105;
+    }
+
+    .mySwiper2 {
+        height: 80%;
+        width: 100%;
+    }
+
+    .mySwiper {
+        height: 20%;
+        box-sizing: border-box;
+        margin-top: 0.625rem;
+    }
+
+    .mySwiper .swiper-slide {
+        width: 25%;
+        height: 100%;
+        opacity: 0.4;
+    }
+
+    .mySwiper .swiper-slide-thumb-active {
+        opacity: 1;
+    }
+
+    .swiper-slide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 </style>

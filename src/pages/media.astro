@@ -1,0 +1,112 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageTitie from "../components/PageTitie.astro";
+import Menu from "../components/Menu.astro";
+import MediaButton from "../components/MediaButton.astro";
+import mediaInfo from "./media_info.json";
+
+const allGames = await Astro.glob("./project/*.md");
+allGames.sort((game1, game2) =>
+    game1.frontmatter.title.localeCompare(game2.frontmatter.title),
+);
+---
+
+<Layout>
+    <Menu />
+    <PageTitie title="MEDIA" subtitle="미디어" />
+
+    <main>
+        <div class="selectable-option-group">
+            <!-- <SelectableOption active className="game">Press</SelectableOption> -->
+            <!-- <SelectableOption className="portfolio">PORTFOLIOS</SelectableOption> -->
+        </div>
+
+        <div class="card-group game end-block">
+            {
+                mediaInfo.map((info) => (
+                    <MediaButton
+                        url={info.url}
+                        title={info.title}
+                        subtitle={info.subtitle}
+                        fileName={info.imageName}
+                        border={info.border}
+                    />
+                ))
+            }
+        </div>
+
+        <script is:inline>
+            let game = document.querySelector(".card-group.game");
+            let games = game.querySelectorAll(".project");
+
+            for (let g of games) {
+                g.addEventListener("click", (e) => {
+                    let title = g
+                        .querySelector(".title")
+                        .textContent.toString();
+
+                    gtag("event", "click_button", {
+                        button_name: "project_button",
+                        project_title: title,
+                    });
+
+                    console.log("click: " + title);
+                });
+            }
+        </script>
+    </main>
+</Layout>
+
+<script is:inline>
+    var $ = document.querySelector.bind(document);
+    var gameBtn = $(".selectable-option.game");
+    var portfolioBtn = $(".selectable-option.portfolio");
+
+    var gameGroup = $(".card-group.game");
+    var portfolioGroup = $(".card-group.portfolio");
+
+    gameBtn.addEventListener("click", (e) => {
+        gameBtn.classList.add("active");
+        portfolioBtn.classList.remove("active");
+
+        gameGroup.classList.remove("d-none");
+        portfolioGroup.classList.add("d-none");
+    });
+
+    portfolioBtn.addEventListener("click", (e) => {
+        portfolioBtn.classList.add("active");
+        gameBtn.classList.remove("active");
+
+        portfolioGroup.classList.remove("d-none");
+        gameGroup.classList.add("d-none");
+    });
+</script>
+
+<style>
+    main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .selectable-option-group {
+        display: flex;
+        flex-direction: row;
+        column-gap: 25px;
+        margin-bottom: 6.25rem;
+    }
+
+    .card-group {
+        position: relative;
+        width: 100%;
+        display: block;
+        /* display: flex; */
+        /* flex-wrap: wrap; */
+    }
+
+    @media (width <= 650px) {
+        .selectable-option-group {
+            column-gap: 15px;
+        }
+    }
+</style>
