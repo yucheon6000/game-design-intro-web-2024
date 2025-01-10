@@ -2,49 +2,58 @@
 interface Props {
     title: string;
     subtitle: string;
-    filePath: string;
-    path?: string;
+    fileName: string;
+    url?: string;
+    border: boolean;
 }
 
-const { title, subtitle, filePath, path } = Astro.props;
+const { title, subtitle, fileName, url, border } = Astro.props;
 ---
 
-<a class="project" href={path} target="_blank">
-    <div class="image-container">
-        <div
-            style=`background-image: url(${filePath}); 
-            background-size: cover;`
-            class="image back"
-        >
+<a href={url} target="_blank">
+    <div class="project">
+        <div class="image-container">
+            <img
+                src=`/2024/image/media/${fileName}`
+                width="100%"
+                class="image front"
+                style={border ? "border: var(--primary) solid 0.1px;" : ""}
+            />
         </div>
-        <div
-            style=`background-image: url(${filePath});
-            background-size: contain;
-            backdrop-filter: brightness(0.5) blur(5px);`
-            class="image front"
-        >
+        <div class="titles">
+            <div class="title">{title}</div>
+            <div class="subtitle">{subtitle}</div>
         </div>
     </div>
-    <div class="title">{title}</div>
-    <div class="subtitle">{subtitle}</div>
 </a>
 
 <style>
+    a {
+        text-decoration: none;
+    }
+
     .project {
         position: relative;
-        width: calc((100% - 75px) / 4);
+        /* width: calc((100% - 75px) / 4);
         min-width: calc((100% - 75px) / 4);
-        max-width: calc((100% - 75px) / 4);
-        flex: 1 1 calc((100% - 75px) / 4);
-        margin-bottom: 50px;
-        box-sizing: border-box;
-        text-decoration: none;
+        max-width: calc((100% - 75px) / 4); */
+        /* flex: 1 1 calc((100% - 75px) / 4); */
+        width: 100%;
+        /* margin-bottom: 0.2rem; */
+        /* box-sizing: border-box; */
         color: var(--black);
+        display: flex;
+        flex-direction: row;
+        /* background-color: red; */
+        padding: 2rem;
+        padding-left: 40rem;
+        flex-wrap: wrap;
+        border-bottom: 1px var(--primary) solid;
     }
 
     .image-container {
         position: relative;
-        width: 100%;
+        /* width: 100%; */
         height: auto;
         aspect-ratio: 1 / 1.414;
         margin-bottom: 20px;
@@ -54,15 +63,13 @@ const { title, subtitle, filePath, path } = Astro.props;
         position: absolute;
         width: 100%;
         aspect-ratio: 1 / 1.414;
+        object-fit: cover;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         border-radius: 8px;
         transition: width 0.3s ease;
         will-change: transform width;
-
-        background-position: center;
-        background-repeat: no-repeat;
     }
 
     .project:hover .image {
@@ -71,11 +78,21 @@ const { title, subtitle, filePath, path } = Astro.props;
         will-change: transform width;
     }
 
+    .titles {
+        width: auto;
+        position: relative;
+    }
+
     .title {
-        font-size: 18px;
-        font-weight: 500;
-        word-break: break-all;
+        font-size: 20px;
+        overflow-x: hidden;
+        text-overflow: ellipsis;
         word-wrap: break-word;
+        white-space: nowrap;
+    }
+
+    .subtitle {
+        font-size: 12px;
     }
 
     @media (width <= 900px) {

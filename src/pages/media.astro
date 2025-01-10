@@ -2,8 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import PageTitie from "../components/PageTitie.astro";
 import Menu from "../components/Menu.astro";
-import MediaButton from "../components/MediaButton.astro";
-import mediaInfo from "./media_info.json";
+import SelectableOption from "../components/SelectableOption.astro";
 
 const allGames = await Astro.glob("./project/*.md");
 allGames.sort((game1, game2) =>
@@ -17,23 +16,60 @@ allGames.sort((game1, game2) =>
 
     <main>
         <div class="selectable-option-group">
-            <!-- <SelectableOption active className="game">Press</SelectableOption> -->
-            <!-- <SelectableOption className="portfolio">PORTFOLIOS</SelectableOption> -->
+            <SelectableOption active className="media">MEDIA</SelectableOption>
         </div>
 
         <div class="card-group game end-block">
-            {
+            <!-- inline js로 대체함 -->
+            <!-- {
                 mediaInfo.map((info) => (
                     <MediaButton
-                        url={info.url}
+                        path={info.url}
+                        filePath={info.imageName}
                         title={info.title}
                         subtitle={info.subtitle}
-                        fileName={info.imageName}
-                        border={info.border}
                     />
                 ))
-            }
+            } -->
         </div>
+
+        <script is:inline>
+            var $ = document.querySelector.bind(document);
+            let cardGroup = $(".card-group");
+
+            fetch("/2024/media_info.json")
+                .then((res) => {
+                    return res.json();
+                })
+                .then((obj) => {
+                    let json = obj;
+                    json.sort(() => Math.random() - 0.5);
+
+                    json.map((info) => {
+                        cardGroup.innerHTML += `
+                            <a class="project" href=${info.url} target="_blank">
+                                <div class="image-container">
+                                    <div
+                                        style="background-image: url(${info.imageUrl}); 
+                                        background-size: cover;"
+                                        class="image back"
+                                    >
+                                    </div>
+                                    <div
+                                        style="background-image: url(${info.imageUrl});
+                                        background-size: contain;
+                                        backdrop-filter: brightness(0.5) blur(5px);"
+                                        class="image front"
+                                    >
+                                    </div>
+                                </div>
+                                <div class="title">${info.title}</div>
+                                <div class="subtitle">${info.subtitle}</div>
+                            </a>
+                        `;
+                    });
+                });
+        </script>
 
         <script is:inline>
             let game = document.querySelector(".card-group.game");
@@ -57,31 +93,6 @@ allGames.sort((game1, game2) =>
     </main>
 </Layout>
 
-<script is:inline>
-    var $ = document.querySelector.bind(document);
-    var gameBtn = $(".selectable-option.game");
-    var portfolioBtn = $(".selectable-option.portfolio");
-
-    var gameGroup = $(".card-group.game");
-    var portfolioGroup = $(".card-group.portfolio");
-
-    gameBtn.addEventListener("click", (e) => {
-        gameBtn.classList.add("active");
-        portfolioBtn.classList.remove("active");
-
-        gameGroup.classList.remove("d-none");
-        portfolioGroup.classList.add("d-none");
-    });
-
-    portfolioBtn.addEventListener("click", (e) => {
-        portfolioBtn.classList.add("active");
-        gameBtn.classList.remove("active");
-
-        portfolioGroup.classList.remove("d-none");
-        gameGroup.classList.add("d-none");
-    });
-</script>
-
 <style>
     main {
         display: flex;
@@ -97,16 +108,96 @@ allGames.sort((game1, game2) =>
     }
 
     .card-group {
-        position: relative;
-        width: 100%;
-        display: block;
-        /* display: flex; */
-        /* flex-wrap: wrap; */
+        display: flex;
+        flex-wrap: wrap;
+        column-gap: 25px; /* 자식 요소들 간의 가로 간격 설정 */
+        justify-content: flex-start; /* 요소들을 왼쪽 정렬 */
     }
 
     @media (width <= 650px) {
         .selectable-option-group {
             column-gap: 15px;
+        }
+    }
+</style>
+
+<style is:inline>
+    .project {
+        position: relative;
+        width: calc((100% - 75px) / 4);
+        min-width: calc((100% - 75px) / 4);
+        max-width: calc((100% - 75px) / 4);
+        flex: 1 1 calc((100% - 75px) / 4);
+        margin-bottom: 50px;
+        box-sizing: border-box;
+        text-decoration: none;
+        color: var(--black);
+    }
+
+    .project .image-container {
+        position: relative;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 201/134;
+        margin-bottom: 20px;
+    }
+
+    .project .image {
+        position: absolute;
+        width: 100%;
+        aspect-ratio: 201/134;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 8px;
+        transition: width 0.3s ease;
+        will-change: transform width;
+
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .project:hover .image {
+        width: 105%;
+        transition: width 0.3s ease;
+        will-change: transform width;
+    }
+
+    .project .title {
+        font-size: 18px;
+        font-weight: 500;
+        word-break: break-all;
+        word-wrap: break-word;
+    }
+
+    .project .subtitle {
+        color: #95969c !important;
+    }
+
+    @media (width <= 900px) {
+        .project {
+            width: calc((100% - 50px) / 3);
+            min-width: calc((100% - 50px) / 3);
+            max-width: calc((100% - 50px) / 3);
+            flex: 1 1 calc((100% - 50px) / 3);
+        }
+    }
+    @media (width <= 650px) {
+        .project {
+            width: calc((100% - 25px) / 2);
+            min-width: calc((100% - 25px) / 2);
+            max-width: calc((100% - 25px) / 2);
+            flex: 1 1 calc((100% - 25px) / 2);
+        }
+    }
+
+    @media (width <= 400px) {
+        .project {
+            width: 100%;
+            min-width: 100%;
+            max-width: 100%;
+            flex: 1 1 100%;
+            /* margin: 0 auto; */
         }
     }
 </style>

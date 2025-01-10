@@ -9,7 +9,7 @@ title: Gate Guardian
 team: INCA
 
 # 유튜브
-youtube: [uDdc4Alzxcw]
+youtube: [uDdc4Alzxcw, fYHkPX1bKas]
 
 # 프로필 (순서대로 적어주시면됩니다.)
 profileNames: [박유천, 강예진, 김사빈, 송은선, 이상훈, 장윤우, 정다솜, 최미선]
@@ -28,7 +28,7 @@ profileEmails:
   [
     6000@yucheon.io,
     yjinkang02@gmail.com,
-    gohui0110@naver.com,
+    sabinseaweed@gmail.com,
     songes0498@naver.com,
     hello@lsh.me,
     dpfspr0632@gmail.com,
