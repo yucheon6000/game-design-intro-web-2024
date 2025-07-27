@@ -3,7 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import PageTitie from "../components/PageTitie.astro";
 import Menu from "../components/Menu.astro";
 import MediaButton from "../components/MediaButton.astro";
-import mediaInfo from "./media_info.json";
+import mediaInfo from "../../public/media_info.json";
 
 const allGames = await Astro.glob("./project/*.md");
 allGames.sort((game1, game2) =>
